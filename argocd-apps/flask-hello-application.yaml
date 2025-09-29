@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: flask-hello
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: "https://github.com/splegi/cd-deploy-project"
+    targetRevision: main
+    path: charts/flask-hello # путь к твоему Helm-чарту
+    helm:
+      valueFiles:
+        - values.yaml # если есть кастомные значения
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true # удаляет ресурсы, которых нет в чарте
+      selfHeal: true # исправляет несоответствия с чартом
+    retry:
+      limit: 5
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 3m
