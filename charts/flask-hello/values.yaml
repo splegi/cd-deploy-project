@@ -1,9 +1,9 @@
-replicaCount: 1
+replicaCount: 3
 
 image:
   repository: splegi/flask-hello # твой Docker Hub репо
   pullPolicy: IfNotPresent
-  tag: "29"
+  tag: 32
 
 service:
   type: ClusterIP
