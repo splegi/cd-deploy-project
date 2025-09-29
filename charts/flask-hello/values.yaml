@@ -3,7 +3,7 @@ replicaCount: 3
 image:
   repository: splegi/flask-hello # твой Docker Hub репо
   pullPolicy: IfNotPresent
-  tag: 34
+  tag: 35
 
 service:
   type: ClusterIP
