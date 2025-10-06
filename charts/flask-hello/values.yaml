@@ -3,7 +3,7 @@ replicaCount: 2
 image:
   repository: splegi/flask-hello # твой Docker Hub репо
   pullPolicy: IfNotPresent
-  tag: 40
+  tag: "39"
 
 service:
   type: ClusterIP
@@ -16,3 +16,27 @@ ingress:
   annotations: {}
   tls: false
   tlsSecretName: flask-tls
+
+resources:
+  requests:
+    cpu: "100m"
+    memory: "128Mi"
+  limits:
+    cpu: "500m"
+    memory: "256Mi"
+
+hpa:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 70
+
+vpa:
+  enabled: true
+  updateMode: Auto
+  minAllowed:
+    cpu: "100m"
+    memory: "128Mi"
+  maxAllowed:
+    cpu: "1"
+    memory: "512Mi"

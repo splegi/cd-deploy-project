@@ -15,8 +15,10 @@ spec:
                 app: flask-app
         spec:
             containers:
-                - name: flash-conteiner
+                - name: flask-hello-container
                   image: "{{ .Values.image.repository}}:{{ .Values.image.tag }}"
                   imagePullPolicy: {{ .Values.image.pullPolicy }}
                   ports:
                     - containerPort: 5000
+                  resources:
+{{ .Values.resources | toYaml | indent 12 }}
