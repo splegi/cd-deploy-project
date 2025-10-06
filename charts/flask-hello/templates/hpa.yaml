@@ -17,4 +17,19 @@ spec:
             target:
                 type: Utilization
                 averageUtilization: {{ .Values.hpa.targetCPUUtilizationPercentage }}
+    behavior:
+        scaleUp:
+            stabilizationWindowSeconds: 0
+            tolerance: 0.05
+            policies:
+                - type: Percent
+                  value: 100
+                  periodSeconds: 15
+        scaleDown:
+            stabilizationWindowSeconds: 300
+            tolerance: 0.15
+            policies:
+                - type: Percent
+                  value: 50
+                  periodSeconds: 30
 {{- end }}
